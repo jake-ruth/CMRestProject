@@ -1,0 +1,96 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta charset="ISO-8859-1">
+    <title>Case Details</title>
+    <!--aacounty Bootstrap -->
+    <link rel="stylesheet" href="https://www.aacounty.org/_template-assets/css/bootstrap4-iso.min.css">
+    <!--jquery datatables css -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <!--<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">-->
+    <link rel="stylesheet" type="text/css" href="../style.css">
+  </head>
+  
+<body> 
+  <div class="bootstrap-iso">
+  <div class = "text-center"><h2>Case Information: </h2></div>
+  <!--trying jquery datatables -->
+  <table id="details_table1" class="table table-bordered table-sm">
+    <thead class="thead-light">
+      <tr>
+        <th>Case Id</th>
+        <th>Tax ID</th>
+        <th>Location</th>
+        <th>Received</th>
+        <th>Completed</th>
+        <th>Date Assigned</th>
+        <th>Permit Number</th>
+        <th>Original ID</th>
+        <th>Waterfront</th>
+        <th>Critical Area</th>
+        <th>Complaint</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+      <!--case data here from ajax -->
+      </tr>
+    </tbody>
+  </table>
+  <br/><br/>
+  <br/><br/>
+  <div class = "column col-sm-6">
+  <div class = "text-center"><h2>Case Events: </h2></div>
+  <table id = "timeline_table" class = "table table-bordered table-sm" >
+   <thead class="thead-light">
+      <tr>
+        <th></th>
+        <th>Date</th>
+        <th>Event</th>
+       <!-- <th>Notes</th> -->
+      </tr>
+   </thead>
+   <tbody>
+    <tr class="table-info">
+    <!--case data here from ajax -->
+    </tr>
+    </tbody>
+  </table>
+  </div>
+  <br/>
+  <br/>
+  <p>
+    To obtain additional information about a case, call <span style = "font-weight:bold">(410) 222-7780</span>
+    <br/><br/>
+    <span style = "font-style:italic">Please note that email addresses are subject to disclosure under the Maryland Public Information Act, if a request is made.</span>
+    <br/><br/>
+    <!--<h5><a href = "https://www.aacounty.org/departments/inspections-and-permits/contact-us/index.html">Request Assistance</a></h5>-->
+     <ul class="link-list">
+       <li><a href = "https://www.aacounty.org/departments/inspections-and-permits/code-compliance/review-system/index.html">Search For Another Case</a></li>
+       <li><a class='icon-email-blue' href="https://www.aacounty.org/departments/inspections-and-permits/contact-us/index.html">Request Assistance</a></li>
+     </ul>
+  </p>
+  <br/>
+  <!-- Bootstrap js -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <!--jquery and regular js -->
+  <script type = "text/javascript" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <!--<script src="../jquery.js"></script>-->
+  <script type = "text/javascript" src="case_details.js"></script>
+
+  <!--jquery datatables js -->
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+  <!--<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>-->
+
+  <!-- moment -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+  <!-- ajax Makes DataTables not work, because other version -->
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+  </div> <!--boostrap iso -->
+</body>
+</html>

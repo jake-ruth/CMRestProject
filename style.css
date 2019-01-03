@@ -1,0 +1,69 @@
+#emptyform-error, #fields-error {
+	color:#D8000C;
+	background:#FFBABA;
+	padding:12px;
+	font-weight:bold;
+	border-radius:4px;
+	display:none;
+}
+
+#address_list{
+	background-color:white;
+	padding:5px;
+	overflow: scroll;
+	border: solid black 1px;
+	z-index:999 !important;
+	position: absolute !important;
+	list-style-type: none;
+}
+
+ul:hover{
+	cursor:pointer !important;
+}
+
+#address_list li:hover{
+	background:#D8D8D8;
+}
+
+li.selected {
+	background:#D8D8D8;
+}
+
+.label-bold{
+	font-weight: bold;
+}
+
+.table{
+	font-weight:bold;
+}
+
+#details_table1 {
+	width:100%;
+	margin: auto;
+}
+
+#timeline_table {
+	width:100%;
+	margin: auto;
+}
+
+#additional_info {
+	text-align:center !important;
+	font-weight:bold !important;
+}
+
+#data_table td:hover{
+	cursor:pointer
+}
+
+.small-font{
+	font-weight:normal;
+}
+
+td.details-control {
+    background: url('https://datatables.net/examples/resources/details_open.png') no-repeat center center;
+    cursor: pointer;
+}
+tr.shown td.details-control {
+    background: url('https://datatables.net/examples/resources/details_close.png') no-repeat center center;
+}

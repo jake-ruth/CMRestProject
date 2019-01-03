@@ -1,0 +1,123 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <meta charset="ISO-8859-1">
+    <title>Compliance Review System</title>
+    <!--Bootstrap -->
+    <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
+    <link rel="stylesheet" href="https://www.aacounty.org/_template-assets/css/bootstrap4-iso.min.css">
+    <!--jquery datatables css -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <!--my css -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  
+<body>
+  <div class="bootstrap-iso">
+  <div class = "container-fluid">
+    <p>
+      View Building, Grading and Sediment Control, and Zoning Enforcement code compliance cases. <br/>
+      In the Case ID field, the letter B indicates Building cases, letter E is for Environmental (Grading and Sediment Control) cases and letter Z is for Zoning cases. <br/>
+      Please search by full address, Tax ID or Case ID.
+    </p>
+    <h3>Search for a case by Case ID, Tax ID, or address:</h3><br/>
+    <span id = "error_message"><!--validation message here --></span>
+  
+  <!--NOTE: the current case ID is not the human case id, just the unique id in json file -->
+  <form class="form-horizontal send" id="caseForm">
+
+    <div class = "form-group"><!--form group -->
+    <p id = "emptyform-error">*Fill out a field to search for cases*</p>
+    <p id = "fields-error">*Please search by either Address, Tax ID, or Case ID (not a combination)*</p>
+    <label for="locationAddress" class = "label-bold">Address: </label>
+      <input type = "text" name = "locationAddress" id = "locationAddress" class = "form-control" style = "width: 350px;"/><br/>
+     </div><!--end form group -->
+
+    <div class = "form-group"><!--form group -->
+      <label for="tax_id" class = "label-bold">Tax ID: </label>
+      <input type = "text" name = "tax_id" id = "tax_id" class = "form-control" style = "width: 350px;" /><br/>
+    </div><!--end form group -->
+
+    <div class = "form-group" id = "right-shift">
+    <label for="caseType" class = "label-bold">Case ID: </label>
+    <div class = "input-group" style="width: 350px;">
+    <!--<div class = "row"> -->
+      <select id = "caseType" class = "form-control" style = "width: 60px;">
+        <option disable selected value></option>
+        <option value = "B">B</option>
+        <option value = "E">E</option>
+        <option value = "Z">Z</option>
+      </select>--
+      <input type = "text" name = "caseYear" id = "caseYear" class = "form-control" style = "width: 100px;"/>  --
+      <input type = "text" name = "caseNum" id = "caseNum" class = "form-control" style = "width: 100px;"/>
+      <!--</div> -->
+    </div>
+  </div>
+
+    <input class="btn btn-primary" type="submit" id = "submitbutton" name="submitbutton" value="Search">
+    <input class="btn btn-secondary m-2" type="reset" value="Reset" id = "resetbutton" />
+  </form>
+
+  <div class = "text-center"><h2>Case Information: </h2></div>
+  
+  <!-- jquery datatables -->
+  <div class = "aligned">
+  <table id="data_table" class="table table-bordered hover order-column">
+    <thead class="thead-light">
+      <tr>
+        <th>Case Id</th>
+        <th>Tax ID</th>
+        <th>Location</th>
+        <th>Received</th>
+        <th>Completed</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class = "table-info">
+      <!--case data here from ajax -->
+      </tr>
+    </tbody>
+  </table>
+</div>
+  <br/>
+  <p>
+  <hr>
+  <ul class="link-list">
+    <li><a href = "https://www.aacounty.org/services-and-programs/building-and-grading-violations">Report Building, Grading and Sediment Control Violations</a></li>
+  <li><a href = "https://www.aacounty.org/services-and-programs/zoning-code-violations">Report Zoning Violations</a></li>
+  </ul>
+    To obtain additional information about a case, call <span style = "font-weight:bold">(410) 222-7780</span><br/><br/>
+    <span style = "font-style:italic">Please note that email addresses are subject to disclosure under the Maryland Public Information Act, if a request is made.</span><br/><br/>
+    <a class='icon-email-blue' href="https://www.aacounty.org/departments/inspections-and-permits/contact-us/index.html">Request Assistance</a>
+  </p>
+
+  <!-- Bootstrap js -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+  <!--jquery and regular js -->
+  <script src="jquery.js"></script>
+  <script type = "text/javascript" src="main.js"></script>
+
+  <!--jquery ui -->
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+  <!--jquery datatables js -->
+  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
+  <!--CDN for moment.js -->
+  <!-- version doesn't work <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/af.js"></script> -->
+
+  <!-- moment -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+
+  <!--natural Sorting -->
+  <script src="https://cdn.datatables.net/plug-ins/1.10.19/sorting/natural.js"></script>
+
+  <!-- ajax Makes DataTables not work, because other version -->
+  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
+</div>
+</body>
+</html>
