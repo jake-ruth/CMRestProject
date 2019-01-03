@@ -96,7 +96,7 @@ $(document).ready(function(){
 			var return_data = new Array();
 			for (var i=0; i<json.length; i++) {
 				return_data.push({
-					'date' : json[i].eventOpenedTs.monthValue+"/"+json[i].eventOpenedTs.dayOfMonth+"/"+json[i].eventOpenedTs.year+"</td>",
+					'date' : json[i].createdOn.monthValue+"/"+json[i].createdOn.dayOfMonth+"/"+json[i].createdOn.year+"</td>",
 					'eventType' : json[i].eventType.eventTypeName+"</td>",
 					'message' : json[i].message
 				});
