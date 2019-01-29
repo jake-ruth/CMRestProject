@@ -1,5 +1,3 @@
-"use strict";
-
 $(document).ready(function(){
 
 	//throws the datatable errors to the console instead of an alert to user
@@ -8,11 +6,9 @@ $(document).ready(function(){
 	//calls the address service
 	autocompleteAddress($("#locationAddress"));
 
-	//onclick of the submit button triggers this block of code
 	$('#caseForm').on('submit', function(event) {
-		event.preventDefault(); // get request now stays
+		event.preventDefault();
 
-	//clear datatable on reset
 	$('#resetbutton').on('click', function(event){
 		$('#data_table').find("tr:gt(0)").remove(); //works the best, keeps the pagination stuff though
 		$('#emptyform-error').hide();
@@ -40,13 +36,13 @@ $(document).ready(function(){
 	} //end validation
 
 	//base url for cases in CM REST API 
-	var tax_url = 'https://aacoprod.aacounty.org/AACOServicePublic/rest/CaseManager/cases/getCaseByTaxId/' + taxId_input;
-	var caseByFullId_url = 'https://aacoprod.aacounty.org/AACOServicePublic/rest/CaseManager/cases/getCaseByFullId/' + caseCategory_input + "/" + caseYear_input + "/" + caseNum_input;
-	var caseByAddress_url = 'https://aacoprod.aacounty.org/AACOServicePublic/rest/CaseManager/cases/getCaseByAddress/' + address_input.replace(" ","%20");
+	//var tax_url = 'https://aacoprod.aacounty.org/AACOServicePublic/rest/CaseManager/cases/getCaseByTaxId/' + taxId_input;
+	//var caseByFullId_url = 'https://aacoprod.aacounty.org/AACOServicePublic/rest/CaseManager/cases/getCaseByFullId/' + caseCategory_input + "/" + caseYear_input + "/" + caseNum_input;
+	//var caseByAddress_url = 'https://aacoprod.aacounty.org/AACOServicePublic/rest/CaseManager/cases/getCaseByAddress/' + address_input.replace(" ","%20");
 
-	//var caseByAddress_url = 'http://localhost:8080/CaseManager/rest/CMMobile/cases/getCaseByAddress/' + address_input;
-	//var tax_url = 'http://localhost:8080/CaseManager/rest/CMMobile/cases/getCaseByTaxId/' + taxId_input;
-	//var caseByFullId_url = 'http://localhost:8080/CaseManager/rest/CMMobile/cases/getCaseByFullId/' + caseCategory_input + "/" + caseYear_input + "/" + caseNum_input;
+	var caseByAddress_url = 'http://localhost:8080/CaseManager/rest/CombinedCases/cases/getCaseByAddress/' + address_input;
+	var tax_url = 'http://localhost:8080/CaseManager/rest/CombinedCases/cases/getCaseByTaxId/' + taxId_input;
+	var caseByFullId_url = 'http://localhost:8080/CaseManager/rest/CombinedCases/cases/getCaseByFullId/' + caseCategory_input + "/" + caseYear_input + "/" + caseNum_input;
 
 
 	var final_url;
@@ -68,9 +64,7 @@ $(document).ready(function(){
 		final_url = caseByFullId_url;
 		$("#fields-error").hide();
 		$("#emptyform-error").hide();
-	}
-
-	else {
+	} else {
 		$("#fields-error").show();
 		return false;
 	}//end validation
@@ -83,7 +77,7 @@ $(document).ready(function(){
 
 	var table = $("#data_table").DataTable({
 		destroy: true,
-		searching: true, //these fixed the initialization problem!
+		searching: true, 
 		"ajax" : {
 		"type" : "GET",
 		"url" : final_url,
@@ -94,7 +88,11 @@ $(document).ready(function(){
 				return_data.push({
 					'fullCaseId' : json[i].fullCaseId,
 					'taxAccountNumber' : json[i].taxAccountNumber,
-					'locationHouseNumber' : json[i].locationHouseNumber +" "+json[i].locationStreetName+" "+json[i].locationStreetType+" "+json[i].locationCity+", MD "+json[i].locationZipCode,
+					'address' : removeNull(json[i].locationHouseNumber)+" "+
+								removeNull(json[i].locationStreetName)+" "+
+								removeNull(json[i].locationStreetType)+" "+
+								removeNull(json[i].locationCity)+", MD "+
+								removeNull(json[i].locationZipCode),
 					'receivedDate' : convertDate(json[i].receivedDate),
 					'completedDate' : convertDate(json[i].completedDate),
 					'id' : json[i].id
@@ -128,17 +126,14 @@ $(document).ready(function(){
 		'data' : "taxAccountNumber",
 		'defaultContent' : "No Tax ID available"
 	}, {
-		'data' : "locationHouseNumber",
+		'data' : "address",
 		 render: function(locationHouseNumber) { 
-                if (locationHouseNumber == "0   , MD ") { //spacing is needed, this comes from the for loop
+                if (locationHouseNumber == "0   , MD " || locationHouseNumber =="   , MD ") { //spacing is needed
                   return "No Address Available";
-                }
-                else {
+                } else {
                   return locationHouseNumber;
                 }
-
               },
-		//'defaultContent' : "No Address available"
 	}, {
 		'data' : "receivedDate",
 		'defaultContent' : "Click to see received date"
@@ -147,7 +142,6 @@ $(document).ready(function(){
 		'defaultContent' : "Click to see completed date"
 	} ],
 
-	//custom message for no cases found
 	"language":{
 	"emptyTable": "No cases found"
 	}
@@ -161,76 +155,70 @@ $(document).ready(function(){
 		window.location = 'case-details/index.html?id=' + data.id; //gives a url param to the case_details.html page
 	});
 
-}); //end anonymous function
-
-//ajax address service
-function createUrl(searchstring) {
-				var protocol = ('https:' == document.location.protocol ? 'https://' : 'http://');
-				var testIP = protocol+"aacoprod-intra.aacounty.org";
-				var url = testIP + "/AACORest/rest/GetAddress/" + searchstring;
-				return url;
-			};
-			
-		function autocompleteAddress(selector) {
-			
-			$(selector).autocomplete({
-				source : function (request, response) {
-					$.ajax({
-						type : "GET",
-						url : createUrl( $(selector).val() ),
-						contentType : "application/json",
-						dataType : "jsonp",
-						success : function (data) {
-							console.log(data);
-							response($.map(data, function (item) {
-								return {
-									label : item.streetNumber + " " + item.streetName,
-
-									/* + " " + item.suffix + " "
-									        + item.cityName + " " + item.zipCode,*/
-
-									value : item.streetNumber + " " + item.streetName
-
-									/* + " " + item.suffix + " "
-							        		+ item.cityName + " " + item.zipCode, */
-										
-								}
-							}));
-						}	
-					});
-					
-				},
-				select : function (event, ui) {
-					$('#locationAddress').val(ui.item.value);
-
-												
-				},
-				minLength : 5
-			}).autocomplete("instance")._renderItem = function (ul, item) {
-				return $("<li>").append("<div>" + item.label + '<br /><span style="color:#c0c0c0;">' + "</span></div>").appendTo(ul);
-			};
-
-			//$("ul").last().addClass("address_list"); //fixed the ui problems with dropdown
-			$("ul").last().attr('id','address_list');
-		} //end address service
-
-		//date conversion function using moment.js library
-		function convertDate(originalDate){
-			var convertedDate = moment(originalDate).format("MM/DD/YYYY");
-			var valid = moment(originalDate).isValid();
-
-			if (valid == true){
-				return convertedDate;
-			}
-
-			else {
-				return "";
-			}
-			
-		}
+	}); //end anonymous function
 
 	return false;
 }); //end of jquery
+
+//UTILITY FUNCTIONS//
+
+//used because legacy data does not have full address fields
+function removeNull(value){
+	if (value == null ) {
+		return "";
+	}
+	else return value;
+}
+
+//date conversion function using moment.js library
+function convertDate(originalDate){
+	var convertedDate = moment(originalDate).format("MM/DD/YYYY");
+	var valid = moment(originalDate).isValid();
+	if (valid == true){
+		return convertedDate;
+	} 
+	else {
+		return "";
+	}	
+}
+
+//ajax address service
+function createUrl(searchstring) {
+	var protocol = ('https:' == document.location.protocol ? 'https://' : 'http://');
+	var testIP = protocol+"aacoprod-intra.aacounty.org";
+	var url = testIP + "/AACORest/rest/GetAddress/" + searchstring;
+	return url;
+};
+			
+function autocompleteAddress(selector) {
+	$(selector).autocomplete({
+		source : function (request, response) {
+			$.ajax({
+				type : "GET",
+				url : createUrl( $(selector).val() ),
+				contentType : "application/json",
+				dataType : "jsonp",
+				success : function (data) {
+					response($.map(data, function (item) {
+						return {
+							label : item.streetNumber + " " + item.streetName,
+							value : item.streetNumber + " " + item.streetName							
+						}
+				   }));
+				}	
+			});
+			
+		},
+		select : function (event, ui) {
+			$('#locationAddress').val(ui.item.value);									
+		},
+		minLength : 5
+	}).autocomplete("instance")._renderItem = function (ul, item) {
+		return $("<li>").append("<div>" + item.label + '<br /><span style="color:#c0c0c0;">' + "</span></div>").appendTo(ul);
+	};
+
+	$("ul").last().attr('id','address_list');
+}
 
 
 
