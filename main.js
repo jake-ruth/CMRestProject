@@ -3,7 +3,6 @@ $(document).ready(function(){
 	//throws the datatable errors to the console instead of an alert to user
 	$.fn.dataTable.ext.errMode = 'throw';
 
-	//calls the address service
 	autocompleteAddress($("#locationAddress"));
 
 	$('#caseForm').on('submit', function(event) {
@@ -121,7 +120,7 @@ $(document).ready(function(){
 
 	"columns" : [ {
 		'data' : "fullCaseId",
-		'defaultContent' : "No Case ID available" //default content fixes unidentified bug
+		'defaultContent' : "No Case ID available"
 	}, {
 		'data' : "taxAccountNumber",
 		'defaultContent' : "No Tax ID available"
@@ -145,8 +144,8 @@ $(document).ready(function(){
 	"language":{
 	"emptyTable": "No cases found"
 	}
-
-}); //end datatable ajax
+	
+    }); //end datatable ajax
 
 	//go to specific case details page
 	$("#data_table tbody").on('click', 'tr', function(){

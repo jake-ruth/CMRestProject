@@ -8,7 +8,7 @@
     <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous"> -->
     <link rel="stylesheet" href="https://www.aacounty.org/_template-assets/css/bootstrap4-iso.min.css">
     <!--jquery datatables css -->
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="ThirdParty/DataTables/datatables.min.css">
     <!--my css -->
     <link rel="stylesheet" type="text/css" href="style.css">
   </head>
@@ -23,26 +23,24 @@
     </p>
     <h3>Search for a case by Case ID, Tax ID, or address:</h3><br/>
     <span id = "error_message"><!--validation message here --></span>
-  
-  <!--NOTE: the current case ID is not the human case id, just the unique id in json file -->
-  <form class="form-horizontal send" id="caseForm">
 
-    <div class = "form-group"><!--form group -->
+  <form class="form-horizontal send" id="caseForm">
+    <div class = "form-group">
     <p id = "emptyform-error">*Fill out a field to search for cases*</p>
     <p id = "fields-error">*Please search by either Address, Tax ID, or Case ID (not a combination)*</p>
     <label for="locationAddress" class = "label-bold">Address: </label>
       <input type = "text" name = "locationAddress" id = "locationAddress" class = "form-control" style = "width: 350px;"/><br/>
-     </div><!--end form group -->
+     </div>
 
-    <div class = "form-group"><!--form group -->
+    <div class = "form-group">
       <label for="tax_id" class = "label-bold">Tax ID: </label>
       <input type = "text" name = "tax_id" id = "tax_id" class = "form-control" style = "width: 350px;" /><br/>
-    </div><!--end form group -->
+    </div>
 
     <div class = "form-group" id = "right-shift">
     <label for="caseType" class = "label-bold">Case ID: </label>
     <div class = "input-group" style="width: 350px;">
-    <!--<div class = "row"> -->
+
       <select id = "caseType" class = "form-control" style = "width: 60px;">
         <option disable selected value></option>
         <option value = "B">B</option>
@@ -53,7 +51,7 @@
       </select>--
       <input type = "text" name = "caseYear" id = "caseYear" class = "form-control" style = "width: 100px;"/>  --
       <input type = "text" name = "caseNum" id = "caseNum" class = "form-control" style = "width: 100px;"/>
-      <!--</div> -->
+
     </div>
   </div>
 
@@ -63,7 +61,6 @@
 
   <div class = "text-center"><h2>Case Information: </h2></div>
   
-  <!-- jquery datatables -->
   <div class = "aligned">
   <table id="data_table" class="table table-bordered hover order-column">
     <thead class="thead-light">
@@ -102,24 +99,15 @@
   <!--jquery and regular js -->
   <script src="jquery.js"></script>
   <script type = "text/javascript" src="main.js"></script>
-
   <!--jquery ui -->
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
   <!--jquery datatables js -->
-  <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-
-  <!--CDN for moment.js -->
-  <!-- version doesn't work <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/locale/af.js"></script> -->
-
+  <script type="text/javascript" charset="utf8" src="ThirdParty/DataTables/datatables.min.js"></script>
   <!-- moment -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
-
+  <script src="ThirdParty/moment.min.js"></script>
   <!--natural Sorting -->
-  <script src="https://cdn.datatables.net/plug-ins/1.10.19/sorting/natural.js"></script>
+  <script src="ThirdParty/DataTables/NaturalSort/naturalsort.js"></script>
 
-  <!-- ajax Makes DataTables not work, because other version -->
-  <!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>-->
 </div>
 </body>
 </html>
